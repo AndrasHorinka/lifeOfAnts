@@ -7,26 +7,19 @@ public class Queen extends Ants {
     int roundOfLastMating;
     private static Queen instance = null;
 
-    private Queen() {}
+    private Queen() {
+    }
 
     public void nextRound(int round) {
         decideIfWannaMate(round);
     }
 
     public static Queen getQueen() {
-        return instance;
-    }
-
-    @Override
-    public void spawn(int xLimit, int yLimit) {
-        if (instance == null) {
-            instance = new Queen();
-            int xCoord = rand.nextInt(xLimit + 1);
-            int yCoord = rand.nextInt(yLimit + 1);
-            setPosition(xCoord, yCoord);
+        if (Queen.instance == null) {
+            Queen.instance = new Queen();
         }
+        return Queen.instance;
     }
-
 
     private void decideIfWannaMate(int round) {
         if (round - roundBetweenMatings < roundOfLastMating) {
@@ -40,5 +33,7 @@ public class Queen extends Ants {
         return isInMatingMood;
     }
 
-
+    public void setRoundOfLastMating(int roundOfLastMating) {
+        this.roundOfLastMating = roundOfLastMating;
+    }
 }

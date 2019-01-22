@@ -15,9 +15,9 @@ public abstract class Ants {
         distanceToQueen = Math.abs(queenCoords[0]-position[0]) + Math.abs(queenCoords[1] - position[1]);
     }
 
-    public void spawn(int xLimit, int yLimit) {
-        int xCoord = rand.nextInt(xLimit+1);
-        int yCoord = rand.nextInt(yLimit+1);
+    public void spawn(int[] xyLimits) {
+        int xCoord = rand.nextInt(xyLimits[0]+1);
+        int yCoord = rand.nextInt(xyLimits[1]+1);
         setPosition(xCoord,yCoord);
     }
 

@@ -6,8 +6,8 @@ public class Soldier extends Ants {
     private boolean isSteppedUp = false;
     private boolean isSteppedDown = false;
 
-    public Soldier(int xLimit, int yLimit) {
-        spawn(xLimit, yLimit);
+    public Soldier(int[] xyLimits) {
+        spawn(xyLimits);
     }
 
     public void nextRound(Queen queen) {
@@ -17,58 +17,26 @@ public class Soldier extends Ants {
 
     @Override
     public void stepOne() {
-        boolean stepMade = false;
-        int step;
-
-        while (!stepMade) {
-            boolean isStepInXAxis = rand.nextBoolean();
-            boolean isStepPositive = rand.nextBoolean();
-
-            if (isStepInXAxis) {
-                if (isStepPositive) {
-                    if (!isSteppedRight) {
+        if (isSteppedRight) {
+            if (isSteppedUp) {
+                if (isSteppedLeft) {
+                    if (isSteppedDown) {
                         isSteppedRight = true;
-                        position[0] += 1;
-                        stepMade = true;
-                    } else if (!isSteppedLeft) {
+                        isSteppedUp = true;
                         isSteppedLeft = true;
-                        position[0] -= 1;
-                        stepMade = true;
+                        isSteppedDown = true;
+                        position[0] += 1;
+                    } else {
+                        position[1] -= 1;
                     }
                 } else {
-                    if (!isSteppedLeft) {
-                        isSteppedLeft = true;
-                        position[0] -= 1;
-                        stepMade = true;
-                    } else if (!isSteppedRight) {
-                        isSteppedRight = true;
-                        position[0] += 1;
-                        stepMade = true;
-                    }
+                    position[0] -= 1;
                 }
             } else {
-                if (isStepPositive) {
-                    if (!isSteppedUp) {
-                        isSteppedUp = true;
-                        position[1] += 1;
-                        stepMade = true;
-                    } else if (!isSteppedDown) {
-                        isSteppedDown = false;
-                        position[1] -= 1;
-                        stepMade = true;
-                    }
-                } else {
-                    if (!isSteppedDown) {
-                        isSteppedDown = true;
-                        position[1] -= 1;
-                        stepMade = true;
-                    } else if (!isSteppedUp) {
-                        isSteppedUp = true;
-                        position[1] += 1;
-                        stepMade = true;
-                    }
-                }
+                position[1] += 1;
             }
+        } else {
+            position[0] += 1;
         }
     }
 }
